@@ -14,7 +14,7 @@ class RecipeListCache: RecipeListCacheType {
         if let data = UserDefaults.standard.data(forKey: recipeListKey) {
             let decoder = JSONDecoder()
             if let recipeList = try? decoder.decode([Recipe].self, from: data) {
-                print("DEBUG: informacion que estaba en la cache")
+              
                 return recipeList
             }
         }
@@ -26,7 +26,7 @@ class RecipeListCache: RecipeListCacheType {
         let encoder = JSONEncoder()
         if let data = try? encoder.encode(recipeList) {
             UserDefaults.standard.set(data, forKey: recipeListKey)
-            print("DEBUG: guardado en la cache")
+            
         }
     }
     

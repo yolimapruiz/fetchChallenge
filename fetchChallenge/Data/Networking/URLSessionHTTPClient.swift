@@ -32,7 +32,7 @@ class URLSessionHTTPClient: HTTPClientType {
             guard response.statusCode == 200 else {
                 return .failure(.apiError)
             }
-            print("DEBUG: funciono la llamada a la api")
+          
             
             return .success(result.0)
         } catch {

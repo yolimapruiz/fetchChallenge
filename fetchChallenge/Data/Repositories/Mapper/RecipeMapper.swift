@@ -11,9 +11,9 @@ struct RecipeMapper {
     func map(dto: RecipeDTO) -> Recipe {
        
         
-        return Recipe(id: dto.uuid ?? String(Int.random(in: 1...100)),
-                      name: dto.name ?? "",
-                      cuisine: dto.cuisine ?? "",
-                      photoUrl: dto.photoUrlSmall ?? "")
+        return Recipe(id: dto.uuid,
+                      name: dto.name,
+                      cuisine: dto.cuisine,
+                      photoUrl: dto.photoUrlSmall)
     }
 }

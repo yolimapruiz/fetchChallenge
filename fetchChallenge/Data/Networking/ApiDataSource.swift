@@ -17,7 +17,9 @@ class ApiDataSource: ApiDatasourceType {
     }
     
     func getRecipesList() async -> Result<[RecipeDTO], DataError> {
-        let endPoint = "/recipes.json"
+       let endPoint = "/recipes.json"
+      //  let endPoint = "/recipes-empty.json"
+     //  let endPoint = "/recipes-malformed.json"
         
         let result = await httpClient.makeRequest(endpoint: endPoint, baseUrl: baseUrl)
         
@@ -25,17 +27,18 @@ class ApiDataSource: ApiDatasourceType {
             return .failure(.dataError)
         }
         
-        print("DEBUG : TENGO DATA")
-        
         guard let recipesList = try? JSONDecoder().decode(RecipeResponse.self, from: data) else {
             return .failure(.decodingError)
         }
         
-        return .success(recipesList.recipes.sorted(by: { $0.name ?? "" < $1.name ?? ""
-        }))
         
+        let validRecipeList = recipesList.recipes.compactMap { $0 }
         
+        guard !validRecipeList.isEmpty else {
+            return .failure(.emptyData)
+        }
         
+        return .success(validRecipeList.sorted(by: { $0.name < $1.name}))
         
 
     }
