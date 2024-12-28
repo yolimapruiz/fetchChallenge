@@ -7,7 +7,7 @@
 
 import Foundation
 
-class URLSessionHTTPClient: HTTPClientType {
+class URLSessionHTTPClient {
     
     private let session: URLSession
     private let requestMaker: URLSessionRequestMaker
@@ -17,6 +17,9 @@ class URLSessionHTTPClient: HTTPClientType {
         self.requestMaker = requestMaker
     }
     
+}
+
+extension URLSessionHTTPClient: HTTPClientType {
     func makeRequest(endpoint: String, baseUrl: String) async -> Result<Data, DataError> {
         guard let url = requestMaker.url(endpoint: endpoint, baseURL: baseUrl) else {
             return .failure(.URLError)
@@ -35,6 +38,27 @@ class URLSessionHTTPClient: HTTPClientType {
           
             
             return .success(result.0)
+        } catch {
+            return .failure(.otherError(error))
+        }
+    }
+}
+
+extension URLSessionHTTPClient: RemoteImageDataServiceType {
+    func requestImage(url: URL) async -> Result<Data, DataError> {
+        do{
+            let result = try await session.data(from: url)
+            
+            guard let response = result.1 as? HTTPURLResponse else {
+                return .failure(.networkError)
+            }
+            
+            guard response.statusCode == 200 else {
+                return .failure(.apiError)
+            }
+            
+            return .success(result.0)
+            
         } catch {
             return .failure(.otherError(error))
         }

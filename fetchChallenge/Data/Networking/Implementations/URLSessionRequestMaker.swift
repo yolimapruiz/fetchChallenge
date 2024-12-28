@@ -10,7 +10,6 @@ import Foundation
 struct URLSessionRequestMaker {
     func url(endpoint: String, baseURL: String) -> URL? {
         let urlstring = "\(baseURL)\(endpoint)"
-        
         return URL(string: urlstring)
     }
 }

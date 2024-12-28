@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 protocol RecipeListRepositoryType {
     func getRecipeList() async -> Result<[Recipe], DataError>
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RecipeListCache: RecipeListCacheType {
+actor RecipeListCache: RecipeListCacheType {
     private let recipeListKey = "recipeList"
     
     func getRecipeList() async -> [Recipe] {

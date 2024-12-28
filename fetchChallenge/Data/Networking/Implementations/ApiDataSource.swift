@@ -40,8 +40,6 @@ class ApiDataSource: ApiDatasourceType {
         
         return .success(validRecipeList.sorted(by: { $0.name < $1.name}))
         
-
     }
-    
     
 }

@@ -44,7 +44,7 @@ enum DataError: Error {
             return "There are no recipes available. Try again later"
         case .otherError(let error):
             return "An unexpected error occurred: \(error.localizedDescription)"
-        
+
         }
     }
 }

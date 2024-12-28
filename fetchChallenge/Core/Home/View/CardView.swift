@@ -9,14 +9,15 @@ import SwiftUI
 
 struct CardView: View {
     
+    @ObservedObject var viewModel: RecipesViewModel
     var recipe: Recipe
     
     let  gradient: Gradient = Gradient(colors: [Color(.gray).opacity(0.3), Color(.gray)])
     
     var body: some View {
            VStack {
-               AsyncImage(url: URL(string: recipe.photoUrl)) { image in
-                   image
+               if let image = viewModel.images[recipe.photoUrl] {
+                   Image(uiImage: image)
                        .resizable()
                        .aspectRatio(contentMode: .fill)
                        .overlay(alignment: .bottom) {
@@ -24,33 +25,25 @@ struct CardView: View {
                                Text(recipe.name)
                                    .font(.headline)
                                    .foregroundColor(.white)
-                                   
+                               
                                
                                Text("Cuisine: \(recipe.cuisine)")
                                    .font(.footnote)
                                    .foregroundColor(.white)
-                                   
-                                   
+                               
+                               
                            }
                            .frame(maxWidth: 160)
                            .background(Color.black)
                        }
-               } placeholder: {
-                   Image(systemName: "photo")
-                       .resizable()
-                       .scaledToFit()
-                       .frame(width: 40, height: 40, alignment: .center)
-                       .foregroundColor(.white.opacity(0.7))
-                       .frame(maxWidth: .infinity, maxHeight: .infinity)
-                       .overlay(alignment: .bottom) {
-                           Text(recipe.name)
-                               .font(.headline)
-                               .foregroundColor(.white)
-                               .frame(maxWidth: 136)
-                               .padding()
+               } else {
+                   ProgressView()
+                       .onAppear {
+                           Task {
+                               await viewModel.fetchImages(for: recipe)
+                           }
                        }
-           }
-               
+               }               
            }
            .frame(width: 160, height: 217, alignment: .top)
            .background(
@@ -63,5 +56,5 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView(recipe: recipeMock)
+    CardView(viewModel: ContentViewModelMock, recipe: recipeMock)
 }

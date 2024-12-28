@@ -31,7 +31,7 @@ struct ContentView: View {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 160), spacing: 15)], spacing: 15) {
                     
                     ForEach(recipes, id: \.id) {recipe in
-                        CardView(recipe: recipe)
+                        CardView(viewModel: viewModel, recipe: recipe)
                     }
                 }
             case .error(let message):
@@ -51,18 +51,17 @@ struct ContentView: View {
         }
     }
         .onAppear{
-            
             Task {
            
                 await viewModel.getRecipeList()
+                
 
             }
-            
-            
         }
         .refreshable {
             Task {
                 await viewModel.getRecipeList()
+                
             }
         }
     }

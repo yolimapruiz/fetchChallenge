@@ -56,4 +56,4 @@ let recipesMock = [
                          photoUrl: "https://d3jbb8n5wk0qxi.cloudfront.net/photos/b9ab0071-b281-4bee-b361-ec340d405320/small.jpg")
 ]
 
-@MainActor let ContentViewModelMock = RecipesViewModel(repository: RecipeListRepository(dataSource: ApiDataSource(httpClient: URLSessionHTTPClient(requestMaker: URLSessionRequestMaker())), recipeMapper: RecipeMapper(), cacheDataSource: RecipeListCache()))
+@MainActor let ContentViewModelMock = RecipesViewModel(repository: RecipeListRepository(dataSource: ApiDataSource(httpClient: URLSessionHTTPClient(requestMaker: URLSessionRequestMaker())), recipeMapper: RecipeMapper(), cacheDataSource: RecipeListCache()), imageRepository: RecipeImageRepository(imageCache: ImageCache(), remoteImageDataService: URLSessionHTTPClient(requestMaker: URLSessionRequestMaker())))
