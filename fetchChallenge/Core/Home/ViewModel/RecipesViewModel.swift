@@ -62,8 +62,8 @@ class RecipesViewModel: ObservableObject {
             let image = UIImage(data: imageData)
             
             self.images[recipe.photoUrl] = image
-        case .failure(_):
-            print(" Error fetching image")
+        case .failure(let error):
+            print(" Error fetching image: \(error.localizedDescription)")
         }
     }
     

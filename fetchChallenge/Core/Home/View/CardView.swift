@@ -38,11 +38,7 @@ struct CardView: View {
                        }
                } else {
                    ProgressView()
-                       .onAppear {
-                           Task {
-                               await viewModel.fetchImages(for: recipe)
-                           }
-                       }
+                    
                }               
            }
            .frame(width: 160, height: 217, alignment: .top)
@@ -51,8 +47,13 @@ struct CardView: View {
            )
            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
            .shadow(color: .black.opacity(0.3), radius: 15, x: 0, y: 10)
-           
+           .onAppear {
+              Task {
+                  await viewModel.fetchImages(for: recipe)
+              }
+          }
        }
+      
 }
 
 #Preview {
