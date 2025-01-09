@@ -1,3 +1,17 @@
+# Demo
+
+![IMG_2469](https://github.com/user-attachments/assets/0660c682-6743-451a-a5ff-b2428aa745cc)
+
+> All recipes downloaded
+
+![Video](https://github.com/user-attachments/assets/2073b3b6-e269-41c5-9f94-7d9ffc36350c)
+
+>Malformed data
+
+![Video](https://github.com/user-attachments/assets/01910be4-f6c2-41a5-8d14-b1daf18e1cf1)
+
+> Empty State
+
 ### Steps to Run the App
 The app is going to make its firt call to the api by deafult and it would cache the recipe list.
 To visualize what happens when it recives en empty recipe list or malformed data please comment the good endpoint in the reposiry and uncomment 
